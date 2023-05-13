@@ -24,6 +24,7 @@
         sxhkdConfigPath = ./dotfiles/sxhkdrc;
         alacrittyConfigPath = ./dotfiles/alacritty.yml;
         bashrcPath = ./dotfiles/bashrc;
+        polybarPath = ./dotfiles/polybar.ini;
       };
       specialArgs = { 
         home-manager = inputs.home-manager;

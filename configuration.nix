@@ -32,6 +32,8 @@
     qpwgraph
     spotify
     zathura
+    polybar
+    feh
   ];
 
   networking.hostName = "den";

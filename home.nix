@@ -1,4 +1,4 @@
-user: { alacrittyConfigPath, bspwmConfigPath, sxhkdConfigPath, bashrcPath, ... }: { pkgs, ... }: {
+user: { alacrittyConfigPath, bspwmConfigPath, sxhkdConfigPath, bashrcPath, polybarPath, ... }: { pkgs, ... }: {
   home = {
     username = user;
     homeDirectory = "/home/${user}";
@@ -12,6 +12,7 @@ user: { alacrittyConfigPath, bspwmConfigPath, sxhkdConfigPath, bashrcPath, ... }
       };
       ".alacritty.yml".source = alacrittyConfigPath;
       ".bashrc".source = bashrcPath;
+      ".config/polybar/polybar.ini".source = polybarPath;
     };
   };
   programs.git = {
@@ -25,9 +26,13 @@ user: { alacrittyConfigPath, bspwmConfigPath, sxhkdConfigPath, bashrcPath, ... }
   };
   services.picom = {
     enable = true;
-    inactiveOpacity = 0.8;
-    activeOpacity = 0.9; #"0.90";
-    opacityRules = [ "100:class_g = 'Google-chrome'" "100:class_g = 'Alacritty'" "60:class_g = 'rofi'" ];
+    inactiveOpacity = 1;
+    activeOpacity = 1; #"0.90";
+    opacityRules = [ 
+      "100:class_g = 'Firefox'" 
+      "95:class_g = 'Alacritty' && focused" 
+      "90:class_g = 'Alacritty' && !focused" 
+    ];
     fade = true;
     vSync = true;
     shadow = true;

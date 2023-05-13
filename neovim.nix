@@ -19,6 +19,7 @@ in {
       customRC = builtins.readFile initVimPath;
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
+          nvim-lspconfig
           telescope-nvim
           telescope_hoogle
           feline-nvim
