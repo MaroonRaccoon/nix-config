@@ -19,13 +19,19 @@
     wget
     curl
     pciutils
-    git
+    gitFull
     ripgrep
     rxvt-unicode
     sxhkd
     bspwm
     alacritty
     picom
+    dmenu
+    gh
+    htop
+    qpwgraph
+    spotify
+    zathura
   ];
 
   networking.hostName = "den";
@@ -122,6 +128,13 @@
   #hardware.opengl.enable = true;
   #hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   #hardware.nvidia.modesetting.enable = false;
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 

@@ -14,6 +14,9 @@ alt + @space
 alt + Escape
 	pkill -USR1 -x sxhkd
 
+alt + b
+  firefox
+
 #
 # bspwm hotkeys
 #
