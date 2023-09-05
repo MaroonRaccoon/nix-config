@@ -22,6 +22,7 @@ in {
           nvim-lspconfig
           telescope-nvim
           telescope_hoogle
+          (nvim-treesitter.withPlugins (p: [ p.cpp ]))
           feline-nvim
           vim-nix
           mapa-colors

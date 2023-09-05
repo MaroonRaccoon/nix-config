@@ -17,7 +17,8 @@ set hlsearch
 set incsearch
 
 " indent
-set et si autoindent sw=2 ts=2
+set et si autoindent sw=4 ts=4
+set breakindent
 
 " colors
 set termguicolors
@@ -74,4 +75,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
   end,
 })
+
+require'nvim-treesitter.configs'.setup {
+  auto_install = false,
+  highlight = {
+    enable = true
+  }
+}
 EOF
