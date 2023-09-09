@@ -12,6 +12,7 @@
   boot.initrd.kernelModules = [ "i915" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/849d907d-c938-45c6-9a08-5b909cfea1eb";
@@ -46,5 +47,24 @@
 
   environment.variables = {
     VDPAU_DRIVER = lib.mkIf config.hardware.opengl.enable (lib.mkDefault "va_gl");
+  };
+
+  hardware.opengl.enable = true;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest;
+  hardware.nvidia.modesetting.enable = true;
+
+  #boot.kernelParams = [ "nomodeset" ];
+  
+  #services.xserver.videoDrivers = [ "nvidia" ];
+  #hardware.opengl.enable = true;
+  #hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  #hardware.nvidia.modesetting.enable = false;
+
+  services.xserver = {
+    videoDrivers = [ 
+      "nvidia"
+      "modesetting"
+    ];
+    libinput.enable = true;
   };
 }

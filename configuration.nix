@@ -22,8 +22,6 @@
     gitFull
     ripgrep
     rxvt-unicode
-    sxhkd
-    bspwm
     alacritty
     picom
     dmenu
@@ -32,15 +30,16 @@
     qpwgraph
     spotify
     zathura
-    polybar
     feh
   ];
 
-  networking.hostName = "den";
+  fonts.fonts = with pkgs; [
+    fira-code
+    fira-code-symbols
+  ];
 
   console = {
     earlySetup = true;
-    font = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
     packages = with pkgs; [ terminus_font ];
     keyMap = "us";
   };
@@ -124,24 +123,11 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11"; # Did you read the comment?
 
-  #boot.kernelParams = [ "nomodeset" ];
-  
-  #services.xserver.videoDrivers = [ "nvidia" ];
-  #hardware.opengl.enable = true;
-  #hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-  #hardware.nvidia.modesetting.enable = false;
-
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  hardware.opengl.enable = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest;
-  hardware.nvidia.modesetting.enable = true;
 }
 

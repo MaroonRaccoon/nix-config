@@ -1,11 +1,9 @@
 {
   inputs = {
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
     home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      #inputs.utils.follows = "flake-utils";
+      url = "github:nix-community/home-manager/release-23.05";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
   };
 
@@ -13,38 +11,55 @@
     let 
       system = "x86_64-linux";
       home-config = import ./home.nix;
-      nixpkgs = inputs.nixpkgs-unstable;
+      nixpkgs = inputs.nixpkgs-stable;
       pkgs = (import nixpkgs) {
         inherit system;
         config.allowUnfree = true;
         hostPlatform = nixpkgs.lib.mkDefault "x86_64-linux";
       };
       configPaths = {
-        bspwmConfigPath = ./dotfiles/bspwmrc;
-        sxhkdConfigPath = ./dotfiles/sxhkdrc;
         alacrittyConfigPath = ./dotfiles/alacritty.yml;
         bashrcPath = ./dotfiles/bashrc;
-        polybarPath = ./dotfiles/polybar.ini;
       };
       specialArgs = { 
         home-manager = inputs.home-manager;
         initVimPath = ./dotfiles/init.vim;
       } // configPaths;
     in {
-      nixosConfigurations.den = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.mapa-laptop = nixpkgs.lib.nixosSystem {
         inherit system;
         inherit pkgs;
         inherit specialArgs;
         modules = [ 
+          ./mapa-laptop.nix
           ./configuration.nix
           ./hardware-configuration.nix
+          ./hardware/mapa-laptop.nix
           ./neovim.nix
           ./xserver.nix
           inputs.home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
-            home-manager.users.mapa = home-config "mapa" configPaths;
+            home-manager.users.mapa = home-config "mapa-laptop" "mapa" configPaths;
+          }
+        ];
+      };
+      nixosConfigurations.mapa-desktop = nixpkgs.lib.nixosSystem {
+        inherit system;
+        inherit pkgs;
+        inherit specialArgs;
+        modules = [ 
+          ./mapa-desktop.nix
+          ./configuration.nix
+          ./hardware/mapa-desktop.nix
+          ./neovim.nix
+          ./xserver.nix
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = false;
+            home-manager.useUserPackages = true;
+            home-manager.users.mapa = home-config "mapa-desktop" "mapa" configPaths;
           }
         ];
       };
