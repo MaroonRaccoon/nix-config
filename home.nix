@@ -49,6 +49,8 @@ in {
           }
         }
 
+        feh --bg-fill ~/img/jacato-blanket.jpg &
+
         # start polybar from here since home-manager incorrectly starts it before bspwm if use services.polybar.script
         ${polybar-command}
       '';
@@ -58,6 +60,7 @@ in {
     enable = true;
     keybindings = {
       "alt + Return"                = "alacritty";
+      "alt + u"                     = "dmenu_run";
       "alt + b"                     = "firefox";
       "alt + {_,shift + }w"         = "bspc node -{c,k}";
       "alt + g"                     = "bspc node -s biggest.window";
