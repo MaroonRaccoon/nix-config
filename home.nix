@@ -14,7 +14,7 @@ in {
   home = {
     username = user;
     homeDirectory = "/home/${user}";
-    stateVersion = "22.11";
+    stateVersion = "23.05";
     file = {
       ".alacritty.yml".source = alacrittyConfigPath;
       ".bashrc".source = bashrcPath;
@@ -79,10 +79,12 @@ in {
         width = "100%";
         height = "12pt";
         line-size = "12pt";
-        border-size = "4pt";
+        border-size = "1pt";
         border-color = "#00000000";
         padding-left = "0";
         padding-right = "1";
+        padding-top = "1";
+        padding-bottom = "1";
         module-margin = "1";
         separator = "|";
         separator-foreground = "\${colors.disabled}";

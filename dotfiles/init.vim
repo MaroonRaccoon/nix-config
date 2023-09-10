@@ -34,6 +34,9 @@ nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 
+" hop
+nnoremap \ :HopWord<CR>
+
 lua <<EOF
 lsp = require'lspconfig'
 
@@ -82,4 +85,6 @@ require'nvim-treesitter.configs'.setup {
     enable = true
   }
 }
+
+require'hop'.setup()
 EOF

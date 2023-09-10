@@ -26,6 +26,8 @@ in {
           feline-nvim
           vim-nix
           mapa-colors
+          hop-nvim
+          nvim-cmp
         ];
       };
     };

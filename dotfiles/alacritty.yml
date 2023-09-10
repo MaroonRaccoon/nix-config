@@ -1,5 +1,6 @@
 font:
-  size: 8.0
+  family: Fira Code
+  size: 8
 
 # Colors (Blood Moon)
 colors:
