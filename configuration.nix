@@ -31,6 +31,7 @@
     spotify
     zathura
     feh
+    pavucontrol
   ];
 
   fonts.fonts = with pkgs; [
