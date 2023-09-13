@@ -107,6 +107,7 @@ in {
 
         modules-left = "bspwm";
         modules-center = "xwindow";
+        modules-right = "cpu ram eth pulseaudio date";
       };
       "bar/laptop" = bar-display // {
         enable-ipc = true;

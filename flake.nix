@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -12,10 +13,14 @@
       system = "x86_64-linux";
       home-config = import ./home.nix;
       nixpkgs = inputs.nixpkgs-stable;
-      pkgs = (import nixpkgs) {
+      unstableOverlay = final: prev: {
+        unstable = import inputs.nixpkgs-unstable { inherit (final) system; };
+      };
+      pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
         hostPlatform = nixpkgs.lib.mkDefault "x86_64-linux";
+        overlays = [ unstableOverlay ];
       };
       configPaths = {
         alacrittyConfigPath = ./dotfiles/alacritty.yml;

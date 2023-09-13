@@ -27,7 +27,12 @@ in {
           vim-nix
           mapa-colors
           hop-nvim
+          luasnip
           nvim-cmp
+          cmp-nvim-lsp
+          cmp-buffer
+          cmp-path
+          cmp_luasnip
         ];
       };
     };

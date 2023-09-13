@@ -32,6 +32,8 @@
     zathura
     feh
     pavucontrol
+    discord
+    unstable.opentabletdriver
   ];
 
   fonts.fonts = with pkgs; [
@@ -48,6 +50,7 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "ntfs" ];
 
   # Pick only one of the below networking options.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.

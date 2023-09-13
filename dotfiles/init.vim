@@ -87,4 +87,30 @@ require'nvim-treesitter.configs'.setup {
 }
 
 require'hop'.setup()
+
+local cmp = require'cmp'
+cmp.setup({
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'path' },
+        { name = 'buffer' },
+    }),
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+        end,
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+        ['C-<Space>'] = cmp.mapping.complete,
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    }),
+})
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+lsp.clangd.setup { capabilities = capabilities }
+
 EOF
+
