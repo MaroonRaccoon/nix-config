@@ -40,6 +40,8 @@ nnoremap \ :HopWord<CR>
 lua <<EOF
 lsp = require'lspconfig'
 
+lsp.nil_ls.setup {}
+
 lsp.clangd.setup {}
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

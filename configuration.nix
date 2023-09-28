@@ -16,10 +16,11 @@
 
   environment.systemPackages = with pkgs; [
     firefox
+    zathura
     wget
     curl
-    pciutils
     gitFull
+    pciutils
     ripgrep
     rxvt-unicode
     alacritty
@@ -34,6 +35,8 @@
     pavucontrol
     discord
     unstable.opentabletdriver
+    spotify
+    nil
   ];
 
   fonts.fonts = with pkgs; [
