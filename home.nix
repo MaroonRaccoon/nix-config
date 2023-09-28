@@ -20,6 +20,7 @@ in {
       ".bashrc".source = bashrcPath;
     };
   };
+
   xsession = {
     enable = true;
     scriptPath = ".xinitrc";
@@ -49,6 +50,8 @@ in {
           }
         }
 
+        bspc rule -a Zathura state=tiled
+
         feh --bg-fill ~/img/jacato-blanket.jpg &
 
         # start polybar from here since home-manager incorrectly starts it before bspwm if use services.polybar.script
@@ -56,6 +59,7 @@ in {
       '';
     };
   };
+
   services.sxhkd = {
     enable = true;
     keybindings = {
@@ -71,6 +75,7 @@ in {
       "alt + {_,shift + }{1-9,0}"   = "bspc {desktop -f,node -d} '^{1-9,10}'";
     };
   };
+
   services.polybar = {
     enable = true;
     script = "";
@@ -196,6 +201,7 @@ in {
       };
     };
   };
+
   programs.git = {
     enable = true;
     userName = "Mapa Raccoon";
@@ -205,6 +211,7 @@ in {
       credential.helper = "store";
     };
   };
+
   services.picom = {
     enable = true;
     inactiveOpacity = 1;
@@ -220,5 +227,11 @@ in {
     fadeDelta = 4;
     #fadeSteps = [0.02 0.02];
     backend = "glx";
+  };
+  
+  programs.zathura = {
+    extraConfig = ''
+      recolor
+    '';
   };
 }
