@@ -21,6 +21,7 @@
     curl
     gitFull
     pciutils
+    usbutils
     ripgrep
     rxvt-unicode
     alacritty
