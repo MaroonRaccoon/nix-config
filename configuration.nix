@@ -38,11 +38,17 @@
     unstable.opentabletdriver
     spotify
     nil
+    pulseview
+    docker-compose
+    cabal-install
+    xclip
+    nix-prefetch
   ];
 
   fonts.fonts = with pkgs; [
     fira-code
     fira-code-symbols
+    nerdfonts
   ];
 
   console = {
@@ -95,6 +101,8 @@
     packages = with pkgs; [
     ];
   };
+
+  virtualisation.docker.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

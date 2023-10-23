@@ -9,6 +9,8 @@ nnoremap s <C-w>
 
 " leader
 let mapleader=" "
+let maplocalleader=" "
+
 
 " searching
 set ignorecase
@@ -37,8 +39,44 @@ nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 " hop
 nnoremap \ :HopWord<CR>
 
+" neorg
+nnoremap <localleader>ni :Neorg index<CR>
+
 lua <<EOF
+
+-- this fixes concealer not working (e.g. for links)
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = {"*.norg"},
+  command = "set conceallevel=3"
+})
+
+require("neorg").setup {
+  load = {
+    ["core.defaults"] = { },
+    ["core.concealer"] = { },
+    ["core.keybinds"] = {
+        config = {
+            hook = function(keys)
+                keys.remap_key("norg", "i", "<M-CR>", "<C-CR>")
+            end
+        }
+    },
+    ["core.dirman"] = {
+      config = {
+        workspaces = {
+          notes = "~/notes",
+        },
+        default_workspace = "notes",
+      },
+    },
+  },
+}
+
 lsp = require'lspconfig'
+
+lsp.hls.setup {
+    filetypes = { 'haskell', 'lhaskell', 'cabal' }
+}
 
 lsp.nil_ls.setup {}
 

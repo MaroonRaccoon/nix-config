@@ -230,8 +230,9 @@ in {
   };
   
   programs.zathura = {
+    enable = true;
     extraConfig = ''
-      recolor
+      set recolor
     '';
   };
 }
