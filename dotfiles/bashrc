@@ -3,3 +3,7 @@ set -o vi
 
 # prompt
 PS1='\[\e[01;38;5;200m\]\u@\h \[\e[01;38;5;51m\]\w\[\e[00;38;5;226m\] ^w^ \[\e[00;38;5;7m\]' 
+
+# nix repl uses some alternative to the readline library which doesn't support vi editing mode.
+# so here I use a readline wrapper which provides that functionality
+alias nix-repl='rlwrap --always-readline nix repl'

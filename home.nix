@@ -101,6 +101,8 @@ in {
 
         enable-ipc = true;
 
+        tray-position = "right";
+
         modules-left = "bspwm";
         modules-center = "xwindow";
         modules-right = "cpu ram eth pulseaudio date";
@@ -109,6 +111,8 @@ in {
         monitor = "DP-1";
 
         enable-ipc = true;
+
+        tray-position = "right";
 
         modules-left = "bspwm";
         modules-center = "xwindow";

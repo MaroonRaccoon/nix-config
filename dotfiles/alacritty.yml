@@ -1,6 +1,12 @@
 font:
-  family: MesloLGM Nerd Font Mono
-  size: 9 
+  normal:
+    family: Fira Code Nerd Font Mono
+    style: Medium
+  bold:
+    family: Fira Code Nerd Font Mono
+  italic:
+    family: Fira Code Nerd Font Mono
+  size: 9
 
 # Colors (Blood Moon)
 colors:

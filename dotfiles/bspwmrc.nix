@@ -26,7 +26,7 @@ bspc rule -a Chromium desktop='^2'
 
 polybar -c ~/.config/polybar/polybar.ini example &
 
-feh --bg-fill ~/img/jacato-blanket.jpg &
+feh --bg-fill ~/img/jacato-purple.jpg &
 
 echo 'end' >> /home/mapa/bspwmrc.log
 

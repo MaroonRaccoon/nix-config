@@ -42,7 +42,30 @@ nnoremap \ :HopWord<CR>
 " neorg
 nnoremap <localleader>ni :Neorg index<CR>
 
+" gpt
+nnoremap <leader>gwa :GpWhisperAppend<CR>
+nnoremap <leader>gwr :GpWhisperRewrite<CR>
+
 lua <<EOF
+
+require'gp'.setup {
+    openai_api_key = { "cat", "/home/mapa/.openai-api-key" },
+    agents = {
+        {
+            name = "math",
+            chat = false,
+            command = true,
+            model = { model = "gpt-4" },
+            system_prompt = "You are a speech recognition assistant for math writing. The user will have their speech transcribed into text by a speech recognition model. You will receive this text as input. Your job is to translate this text into prose and LaTeX code. Do not include any commentary or additional text; your responses will be inserted directly into a LaTeX document. The speech recognition model the user uses may not transcribe the user's speech perfectly, so do your best to infer what the user wants even if the text doesn't quite make sense.",
+        }
+    },
+}
+
+
+require("lean").setup {
+  lsp = { on_attach = on_attach },
+  mappings = true,
+}
 
 -- this fixes concealer not working (e.g. for links)
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
@@ -79,6 +102,8 @@ lsp.hls.setup {
 }
 
 lsp.nil_ls.setup {}
+lsp.jedi_language_server.setup {}
+lsp.pyright.setup {}
 
 lsp.clangd.setup {}
 -- Global mappings.
@@ -90,33 +115,34 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
+on_attach = function(ev)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+  -- Buffer local mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local opts = { buffer = ev.buf }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, opts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+  vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+  vim.keymap.set('n', '<space>f', function()
+    vim.lsp.buf.format { async = true }
+  end, opts)
+end
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-  callback = function(ev)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-    vim.keymap.set('n', '<space>wl', function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, opts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<space>f', function()
-      vim.lsp.buf.format { async = true }
-    end, opts)
-  end,
+  callback = on_attach,
 })
 
 require'nvim-treesitter.configs'.setup {
@@ -124,6 +150,11 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true
   }
+}
+
+require'treesitter-context'.setup {
+    enable = true;
+    mode = 'topline'
 }
 
 require'hop'.setup()

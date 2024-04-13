@@ -18,6 +18,7 @@
     firefox
     zathura
     wget
+    unzip
     curl
     gitFull
     pciutils
@@ -27,6 +28,8 @@
     alacritty
     picom
     dmenu
+    xclip
+    xorg.xkill
     gh
     htop
     qpwgraph
@@ -35,14 +38,31 @@
     feh
     pavucontrol
     discord
-    unstable.opentabletdriver
     spotify
     nil
     pulseview
     docker-compose
     cabal-install
-    xclip
     nix-prefetch
+    mpv
+    nvidia-docker
+    wineWowPackages.stable
+    wine
+    ngspice
+    kicad-small
+    inetutils
+    tor-browser-bundle-bin
+    newer.android-tools
+    unstable.android-udev-rules
+    signify
+    telegram-desktop
+    talon
+    snixembed
+    cudaPackages.cudatoolkit
+    rlwrap
+    (sox.override { enableLame = true; })
+    xxd
+    gdbgui
   ];
 
   fonts.fonts = with pkgs; [
@@ -85,6 +105,7 @@
   #   "eurosign:e";
   #   "caps:escape" # map caps to escape.
   # };
+  services.xserver.autoRepeatDelay = 250;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
@@ -97,12 +118,13 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mapa = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
     ];
   };
 
   virtualisation.docker.enable = true;
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -145,5 +167,8 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+
+  nix.settings.substituters = [ "https://nixcache.reflex-frp.org" ];
+  nix.settings.trusted-public-keys = [ "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI=" ];
 }
 

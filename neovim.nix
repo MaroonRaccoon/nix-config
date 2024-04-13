@@ -18,6 +18,15 @@ let
       sha256 = "sha256-jVfpSWPjSSbbsQns8n7TaAiSJLZ9EPEYVl8mibKH8Mw=";
     };
   };
+  gp-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    name = "gp-nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "Robitx";
+      repo = "gp.nvim";
+      rev = "62254bdc5357a016b8e40c236cfd1a3276a3f056";
+      sha256 = "sha256-owPtSzNs+WMnbY91QgaJhDFb9HKJb8vz/ZWPl0D/WXo=";
+    };
+  };
 in {
   programs.neovim = {
     enable = true;
@@ -31,7 +40,8 @@ in {
           nvim-lspconfig
           telescope-nvim
           telescope_hoogle
-          (nvim-treesitter.withPlugins (p: [ p.cpp p.haskell p.norg ]))
+          (nvim-treesitter.withPlugins (p: [ p.cpp p.haskell p.norg p.python ]))
+          nvim-treesitter-context
           feline-nvim
           vim-nix
           mapa-colors
@@ -44,6 +54,8 @@ in {
           cmp_luasnip
           neorg
           neorg-telescope
+          lean-nvim
+          gp-nvim
         ];
       };
     };
