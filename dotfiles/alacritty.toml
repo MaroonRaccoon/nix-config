@@ -1,0 +1,36 @@
+[colors.bright]
+black = "0x696969"
+blue = "0x007FFF"
+cyan = "0x00CCCC"
+green = "0x03C03C"
+magenta = "0xFF1493"
+red = "0xFF2400"
+white = "0xFFFAFA"
+yellow = "0xFDFF00"
+
+[colors.normal]
+black = "0x000000"
+blue = "0x0087BD"
+cyan = "0x20B2AA"
+green = "0x009F6B"
+magenta = "0x9A4EAE"
+red = "0xC40233"
+white = "0xC6C6C4"
+yellow = "0xFFD700"
+
+[colors.primary]
+background = "0x000000"
+foreground = "0xC6C6C4"
+
+[font]
+size = 9
+
+[font.bold]
+family = "Fira Code Nerd Font Mono"
+
+[font.italic]
+family = "Fira Code Nerd Font Mono"
+
+[font.normal]
+family = "Fira Code Nerd Font Mono"
+style = "Medium"

@@ -16,7 +16,7 @@ in {
     homeDirectory = "/home/${user}";
     stateVersion = "23.05";
     file = {
-      ".alacritty.yml".source = alacrittyConfigPath;
+      ".alacritty.toml".source = alacrittyConfigPath;
       ".bashrc".source = bashrcPath;
     };
   };

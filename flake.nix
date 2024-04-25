@@ -1,10 +1,9 @@
 {
   inputs = {
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
-    nixpkgs-newer.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     talon.url = "github:nix-community/talon-nix";
@@ -17,7 +16,6 @@
       nixpkgs = inputs.nixpkgs-stable;
       unstableOverlay = final: prev: {
         unstable = import inputs.nixpkgs-unstable { inherit (final) system; };
-        newer = import inputs.nixpkgs-newer { inherit (final) system; };
         talon = inputs.talon.packages.x86_64-linux.default;
       };
       pkgs = import nixpkgs {
@@ -27,7 +25,7 @@
         overlays = [ unstableOverlay ];
       };
       configPaths = {
-        alacrittyConfigPath = ./dotfiles/alacritty.yml;
+        alacrittyConfigPath = ./dotfiles/alacritty.toml;
         bashrcPath = ./dotfiles/bashrc;
       };
       specialArgs = { 

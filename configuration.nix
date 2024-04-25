@@ -25,7 +25,7 @@
     usbutils
     ripgrep
     rxvt-unicode
-    alacritty
+    unstable.alacritty
     picom
     dmenu
     xclip
@@ -45,14 +45,13 @@
     cabal-install
     nix-prefetch
     mpv
-    nvidia-docker
+    #nvidia-docker
     wineWowPackages.stable
     wine
     ngspice
     kicad-small
     inetutils
     tor-browser-bundle-bin
-    newer.android-tools
     unstable.android-udev-rules
     signify
     telegram-desktop
@@ -65,7 +64,7 @@
     gdbgui
   ];
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     fira-code
     fira-code-symbols
     nerdfonts

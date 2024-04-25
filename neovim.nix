@@ -1,6 +1,6 @@
 { initVimPath, pkgs, ... }: 
 let
-  mapa-colors = pkgs.vimUtils.buildVimPluginFrom2Nix {
+  mapa-colors = pkgs.vimUtils.buildVimPlugin {
     name = "vim-colors";
     src = pkgs.fetchFromGitHub {
       owner = "MaroonRaccoon";
@@ -9,7 +9,7 @@ let
       sha256 = "sha256-UdMrwwEkvpNPVuTRSgh+2pRIo/lWVoKCAFycpSDICwM=";
     };
   };
-  neorg-telescope = pkgs.vimUtils.buildVimPluginFrom2Nix {
+  neorg-telescope = pkgs.vimUtils.buildVimPlugin {
     name = "neorg-telescope";
     src = pkgs.fetchFromGitHub {
       owner = "nvim-neorg";
@@ -18,7 +18,7 @@ let
       sha256 = "sha256-jVfpSWPjSSbbsQns8n7TaAiSJLZ9EPEYVl8mibKH8Mw=";
     };
   };
-  gp-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+  gp-nvim = pkgs.vimUtils.buildVimPlugin {
     name = "gp-nvim";
     src = pkgs.fetchFromGitHub {
       owner = "Robitx";
